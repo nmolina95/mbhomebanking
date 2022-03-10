@@ -1,0 +1,133 @@
+.account-select{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.3rem;
+    padding: 1rem;
+    box-shadow: 0 0 2px rgba(0,0,0,.25);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.account-select-option{
+    border-radius: 0;
+}
+.account-select-option:hover {
+    background: rgba(0,0,0,.1);
+    background: #F3F4ED;
+}
+.account-info{
+    display: flex;
+    justify-content: space-between;
+}
+.account-number{
+    font-size: 0.9rem;
+}
+.account-balance{
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+.bx-chevron-down{
+    font-size: 1.5rem;
+}
+.dropdown-menu{
+    width: 100%;
+    padding: 0;
+}
+.activities-section{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.table-title{
+    margin: 1.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 200;
+}
+th{
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+tbody{
+    border-top: none!important;
+}
+.transaction-description{
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.transaction-date{
+    font-size: 0.8rem;
+}
+.transaction-price{
+    font-size: 0.9rem;
+}
+.activity{
+    transition: 0.3s;
+}
+.activity:nth-child(odd){
+    background: rgba(103, 109, 124, 0.08);
+}
+.activity:hover{
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    background: #FF6363;
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 0 2px #FF6363;
+}
+.moreMoney:hover{
+    background: rgba(32, 190, 128, 0.9);
+}
+.create-account-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+.create-account-container h3{
+    font-weight: 300;
+    margin: 1rem 0;
+}
+.create-account-img{
+    width: 100%;
+}
+.create-account-btn{
+    width: 100%;
+    font-weight: 200;
+    margin-bottom: 1rem;
+    background: rgba(32, 190, 128, 1);
+    background: #009C86;
+    border-radius: 0.3rem;
+    border: none;
+}
+.delete-account-btn{
+    background: #FC4F4F;
+}
+.max-accounts{
+    font-size: 0.75rem;
+    color: #777;
+}
+@media screen and (min-width: 992px) {
+    .account-info{
+        width: fit-content;
+    }
+    .account-info:nth-child(2){
+        width: 31%;
+    }
+    .account-number{
+        margin-left: 0.8rem;
+    }
+    .activities-section{
+        flex-wrap: inherit;
+    }
+    .create-account-img{
+        width: 20rem;
+    }
+    .create-account-btn{
+        width: 50%;
+    }
+}

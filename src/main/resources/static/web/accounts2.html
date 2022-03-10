@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="./public/css/style2.css">
+    <title>Dashboard - MindHub Homebanking</title>
+</head>
+<body>
+    <header>
+
+    </header>
+    <main class="main" id="app">
+        <section class="nav-section">
+            <nav class="nav animate__animated animate__fadeIn">
+                <div>
+                    <h1 class="title"><span><i class="logo fas fa-piggy-bank logo-icon"></i></span> MindHub Brothers</h1>
+                </div>
+                <ul class="nav-list">
+                    <li>
+                        <a class="marked"><span><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/web/account2.html"><span><i class="fas fa-wallet"></i></span> Accounts</a>
+                    </li>
+                    <li>
+                        <a href="/web/transfers.html"><span><i class="fas fa-comment-dollar"></i></span> Transfers</a>
+                    </li>
+                    <li>
+                        <a href="/web/cards.html"><span><i class="fas fa-credit-card"></i></span> Cards</a>
+                    </li>
+                    <li>
+                        <a><span><i class="far fa-money-bill-alt"></i></span> Dollar exchange</a>
+                    </li>
+                    <li>
+                        <a href="/web/loans.html"><span><i class="fas fa-hand-holding-usd"></i></span> Loans</a>
+                    </li>
+                    <li>
+                        <a><span><i class="fas fa-chart-line"></i></span> Investments</a>
+                    </li>
+                </ul>
+                <section class="nav-footer" v-if="client">
+                    <div class="avatar">
+                        <div class="avatar__letters">
+                            <p v-if="client">{{ client.firstName[0] }}{{ client.lastName[0] }}</p>
+                        </div>
+                    </div>
+                    <p v-if="client">{{ client.firstName }} {{ client.lastName }}</p>
+                    <p v-if="client">{{ client.email }}</p>
+                    <div>
+                        <i class="icon-box fas fa-cog"></i>
+                        <i class="icon-box fas fa-sign-out-alt" @click="logout()"></i>
+                    </div>
+                </section>
+            </nav>
+        </section>
+        <section class="body-content">
+            <section class="content-header">
+                <section class="header animate__animated animate__fadeIn">
+                    <div class="dashboard-welcome">
+                        <h2><span><i class="fas fa-tachometer-alt"></i></span> Account Dashboard</h2>
+                        <p v-cloak>Hello, {{ client.firstName }}!</p>
+                    </div>
+                    <div class="header-icons">
+                        <i class="icon-box fas fa-search" v-on:click="showSearch()"></i>
+                        <div class="dropdown btn-group">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-box fas fa-bell"></i></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown">
+                                <p>Hola</p>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <div class="search-form display-none animate__animated animate__fadeInDownBig animate__fadeOutUpBig">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Buscá entre tus actividades" v-model="searchForm" @keyup="search()">
+                </div>
+            </section>
+            <section class="cards-section">
+                <ul class="accounts-list">
+                    <a class="account-link animate__animated animate__backInLeft" v-if="account" v-on:click="changeAccount(account.id)">  
+                        <li class="account card">
+                            <div class="card-info card-info-1">
+                                <div class="card-info">
+                                    <p>Balance</p>
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="card-info">
+                                    <div>
+                                        <h4 class="balance" v-cloak>${{ formatPrice(account.balance)}},00</h4>
+                                        <p v-cloak>CA USD {{account.number}}</p>
+                                    </div>
+                                    <i class="fas fa-plus more-info-btn"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                    <a class="account-link animate__animated animate__backInLeft" v-else>
+                        <li class="account card">
+                            <div class="card-info card-info-1">
+                                <div class="card-info">
+                                    <p>Balance</p>
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <p>No tenés cuentas creadas</p>
+                            </div>
+                        </li>
+                    </a>
+                    <a class="account-link animate__animated animate__backInDown" v-if="loans.length > 0">  
+                        <li class="account card">
+                            <div class="card-info">
+                                <div>
+                                    <p v-cloak>{{ loan.name }} loan</p>
+                                    <h4 v-if="loan" v-cloak>${{ formatPrice(loan.amount) }},00</h4>
+                                </div>
+                                <div>
+                                    <i class="fas fa-plus more-info-btn"></i>
+                                </div>
+                            </div>
+                            <p v-cloak>Remaining payment: <span class="loan-remain">${{ formatPrice(loan.amount / 4) }}</span></p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width:75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                            </div>
+                        </li>
+                    </a>
+                    <a class="account-link animate__animated animate__backInDown" v-else>
+                        <li class="account card">
+                            <div class="card-info">
+                                <p>You don't have any loan</p>   
+                            </div>
+                        </li>
+                    </a>
+                    <a class="account-link animate__animated animate__backInRight" v-on:click="changeAccount(3)">  
+                        <li class="account account3 card">
+                            <p>Dollar exchange rate <span><i class="far fa-money-bill-alt dolar-icon"></i></span></p>
+                            <table>
+                                <thead>
+                                    <th></th>
+                                    <th>Buy</th>
+                                    <th>Sell</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="dolar-name" v-cloak>{{ oficialDolar.nombre }}</td>
+                                        <td class="dolar-price" v-cloak>${{ oficialDolar.compra }}</td>
+                                        <td class="dolar-price" v-cloak>${{ oficialDolar.venta }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="dolar-name" v-cloak>{{ blueDolar.nombre }}</td>
+                                        <td class="dolar-price" v-cloak>${{ blueDolar.compra }}</td>
+                                        <td class="dolar-price" v-cloak>${{ blueDolar.venta }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </a>
+                </ul>
+            </section>
+            <section class="graph-section col-lg-7 animate__animated animate__backInUp" v-if="transactions.length > 0">
+                <div class="chart-display">
+                    <h2>Cash Flow</h2>
+                    <canvas id="myChart" aria-label="Account movements chart" role="chart">
+                    </canvas>
+                </div>
+                <div class="chart-display" v-else>
+                    <p>No existen transacciones</p>
+                </div>
+                <div class="graph-info">
+                    <ul class="statistics-list">
+                        <li class="graph-statistic" v-cloak>
+                            <p>Most incomes:</p>
+                            <h4 class="graph-balance" v-cloak>${{ formatPrice(mostIncomes.balance) }}</h4>
+                            <h6 class="graph-month" v-cloak>{{ mostIncomes.month }}</h6>
+                        </li>
+                        <li class="graph-statistic least-graph" v-cloak>
+                            <p>Least incomes:</p>
+                            <h4 class="graph-balance" v-cloak>${{ formatPrice(leastIncomes.balance) }}</h4>
+                            <h6 class="graph-month" v-cloak>{{ leastIncomes.month }}</h6>
+                        </li>
+                        <li class="graph-statistic least-graph" v-cloak>
+                            <p>Most expenses:</p>
+                            <h4 class="graph-balance" v-cloak>${{ formatPrice(mostExpenses.balance) }}</h4>
+                            <h6 class="graph-month" v-cloak>{{ mostExpenses.month }}</h6>
+                        </li>
+                        <li class="graph-statistic" v-cloak>
+                            <p>Least expenses:</p>
+                            <h4 class="graph-balance" v-cloak>${{ formatPrice(leastExpenses.balance) }}</h4>
+                            <h6 class="graph-month" v-cloak>{{ leastExpenses.month }}</h6>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="https://kit.fontawesome.com/d92a2a2802.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="./public/js/accounts.js"></script>
+</body>
+</html>

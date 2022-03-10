@@ -1,0 +1,73 @@
+.content{
+    padding: 1rem;
+}
+label{
+    width: 100%;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+.form{
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-group{
+    width: 100%;
+}
+fieldset{
+    margin-bottom: 3rem;
+}
+.label-title{
+    font-size: 1rem;
+}
+.account{
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    width: 70%;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.account:nth-child(2){
+    margin-top: 0;
+}
+.account-balance{
+    margin-bottom: 0;
+}
+.input{
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    width: 95%;
+}
+.accounts{
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+.accounts label{
+    width: fit-content;
+}
+.accounts input{
+    margin: 0 1rem;
+}
+.sender-label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn{
+    background: #009C86;
+}
+.no-accounts{
+    margin-bottom: 2rem;
+}
+@media screen and (min-width: 992px) {
+    .form-group{
+        width: 50%;
+    }
+    .input{
+        width: inherit;
+    }
+}
