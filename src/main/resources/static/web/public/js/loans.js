@@ -91,7 +91,7 @@ let app = new Vue({
 
             axios.post("/api/loans", app.loan_app)
                 .then(res => {
-                    window.location.href = "http://localhost:8080/web/account2.html";
+                    window.location.href = "/web/account2.html";
                 })
         },
         getLoans: () => {
@@ -102,7 +102,7 @@ let app = new Vue({
                 })
         },
         loadData: () => {
-            axios.get(`http://localhost:8080/api/clients/current`)
+            axios.get(`/api/clients/current`)
                 .then(res => {
                     app.client = res.data;
                     app.accounts = [];

@@ -15,7 +15,7 @@ let app = new Vue({
             number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         },
         loadData: () => {
-            axios.get(`http://localhost:8080/api/client/current`)
+            axios.get(`/api/client/current`)
                 .then(res => {
                     app.account = res.data;
                     console.log(app.account.transactions)

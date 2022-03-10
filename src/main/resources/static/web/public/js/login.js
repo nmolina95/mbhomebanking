@@ -22,7 +22,7 @@ let app = new Vue({
             axios.post("/api/login", user, {headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(res => {
                     console.log(res);
-                    window.location.href = "http://localhost:8080/web/accounts2.html";
+                    window.location.href = "/web/accounts2.html";
                 })
                 .catch(err => {
                     console.error(err);

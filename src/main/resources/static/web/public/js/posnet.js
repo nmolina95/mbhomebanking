@@ -11,9 +11,9 @@ let app = new Vue({
     },
     methods: {
         makeTransaction: () => {
-            axios.post("http://localhost:8080/api/posnet", app.posnet)
+            axios.post("/api/posnet", app.posnet)
                 .then(res => {
-                    window.location.href = "http://localhost:8080/web/account2.html"
+                    window.location.href = "/web/account2.html"
                 })
         }
     }
