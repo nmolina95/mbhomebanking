@@ -70,9 +70,10 @@ public class LoanController {
             return new ResponseEntity<>("Interest selected is not available", HttpStatus.FORBIDDEN);
         }
 
+        account.setBalance(account.getBalance() + amount);
         clientLoanService.saveClientLoan(new ClientLoan(amount * 1.2, payments, client, loan, interest));
         transactionService.saveTransaction(new Transaction(amount, "Loan approved", LocalDateTime.now(), TransactionType.CREDIT, account));
-        account.setBalance(account.getBalance() + amount);
+        
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
