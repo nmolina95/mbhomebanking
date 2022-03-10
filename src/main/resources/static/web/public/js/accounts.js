@@ -40,9 +40,9 @@ let app = new Vue({
     },
     methods: {
         cancelAccount: () => {
-            axios.patch(`http://localhost:8080/api/clients/current/accounts/delete/${app.accountCancel}`)
+            axios.patch(`/api/clients/current/accounts/delete/${app.accountCancel}`)
                 .then(res => {
-                    window.location.href = "http://localhost:8080/web/account2.html";
+                    window.location.href = "/web/account2.html";
                 })
         },
         cancelCard: (id) => {
@@ -65,7 +65,7 @@ let app = new Vue({
                   setTimeout(() => {
                     axios.patch(`/api/clients/current/cards/${id}`)
                         .then(res => {
-                            window.location.href = "http://localhost:8080/web/cards.html";
+                            window.location.href = "/web/cards.html";
                         })
                   }, 1500);
                 }
@@ -73,7 +73,7 @@ let app = new Vue({
 
         },
         changeAccount: (id) => {
-            axios.get(`http://localhost:8080/api/accounts/${id}`)
+            axios.get(`/api/accounts/${id}`)
                 .then(res => {
                     app.account = res.data;
                     app.sortArray(app.account.transactions, "b", "id");
@@ -251,7 +251,7 @@ let app = new Vue({
 
             axios.post("/api/clients/current/cards", `color=${card.color}&type=${card.type}`)
                 .then(res => {
-                    window.location.href = "http://localhost:8080/web/cards.html";
+                    window.location.href = "/web/cards.html";
                 })
         },
         getDolarPrice: () => {
@@ -270,7 +270,7 @@ let app = new Vue({
                 })
         },
         loadData: () => {
-            axios.get(`http://localhost:8080/api/clients/current`)
+            axios.get(`/api/clients/current`)
                 .then(res => {
                     app.client = res.data;
                     app.sortArray(app.client.accounts, "a", "id");
@@ -358,7 +358,7 @@ let app = new Vue({
                 .then(() => {
                     setTimeout(() => {
                         app.sortArray(app.transactions, "b", "id");
-                        window.location.href = "http://localhost:8080/web/account2.html";
+                        window.location.href = "/web/account2.html";
                     }, 1400);
                 })
                 .catch(err => {

@@ -22,8 +22,9 @@ let app = new Vue({
     },
     methods: {
         amountControl: () => {
-            if(app.loan_app.amount > app.loan.maxAmount){
-                app.loan_app.amount = app.loan.maxAmount;
+            console.log()
+            if(app.amount > app.loan.maxAmount){
+                app.amount = app.loan.maxAmount;
             }
         },
         calculateInterests: () => {

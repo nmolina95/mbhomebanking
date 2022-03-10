@@ -266,6 +266,10 @@ h2{
     justify-content: space-between;
     align-items: center;
 }
+.account3 span{
+    color: #222222;
+    text-shadow: none;
+}
 .dolar-icon{
     font-size: 1.2rem;
 }
