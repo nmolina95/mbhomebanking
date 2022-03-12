@@ -32,7 +32,7 @@ public class HomebankingApplication {
 			Client admin = clientRepository.save(new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin")));
 			Account cuenta1 = accountRepository.save(new Account("VIN-61900418", LocalDateTime.now() ,5000, AccountType.PESO, melba));
 			Account cuenta2 = accountRepository.save(new Account("VIN-85352440", LocalDateTime.now().plus(Period.ofDays(1)) ,7500, AccountType.PESO, melba));
-			Account cuenta3 = accountRepository.save(new Account("VIN-11233798", LocalDateTime.now() ,950031, AccountType.PESO, nacho));
+			Account cuenta3 = accountRepository.save(new Account("Ap n", LocalDateTime.now() ,950031, AccountType.PESO, nacho));
 			Account cuenta4 = accountRepository.save(new Account("VIN-72142833", LocalDateTime.now().plus(Period.ofDays(1)) ,15000, AccountType.DOLAR, nacho));
 			Transaction gastoMelba1 = transactionRepository.save(new Transaction(5540, "Gasto en boludeces", LocalDateTime.now(), TransactionType.DEBIT, cuenta1));
 			Transaction gastoMelba2 = transactionRepository.save(new Transaction(12341, "Pago por adelantado", LocalDateTime.now(), TransactionType.CREDIT, cuenta1));

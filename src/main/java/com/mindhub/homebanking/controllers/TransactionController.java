@@ -40,6 +40,9 @@ public class TransactionController {
         if(amount == 0 || description.isEmpty() || sender.isEmpty() || receiver.isEmpty()){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
+        if(amount < 0){
+            return new ResponseEntity<>("Amount can't be negative", HttpStatus.FORBIDDEN);
+        }
         if(senderAccount == receiverAccount){
             return new ResponseEntity<>("Sender and receiver accounts are the same", HttpStatus.FORBIDDEN);
         }

@@ -51,6 +51,9 @@ public class LoanController {
         if(amount == 0 || payments == null){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
+        if(amount < 0){
+            return new ResponseEntity<>("Amount can't be negative", HttpStatus.FORBIDDEN);
+        }
         if(loan == null){
             return new ResponseEntity<>("Loan doesn't exist", HttpStatus.FORBIDDEN);
         }
@@ -73,7 +76,7 @@ public class LoanController {
         account.setBalance(account.getBalance() + amount);
         clientLoanService.saveClientLoan(new ClientLoan(amount * 1.2, payments, client, loan, interest));
         transactionService.saveTransaction(new Transaction(amount, "Loan approved", LocalDateTime.now(), TransactionType.CREDIT, account));
-        
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
